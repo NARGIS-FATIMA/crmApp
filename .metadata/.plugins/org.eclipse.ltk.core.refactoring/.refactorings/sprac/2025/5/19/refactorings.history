@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;revision.WebDriver.java&apos; to &apos;WebDriverMethods.java&apos;&#x0D;&#x0A;- Original project: &apos;sprac&apos;&#x0D;&#x0A;- Original element: &apos;revision.WebDriver.java&apos;&#x0D;&#x0A;- Renamed element: &apos;revision.WebDriverMethods.java&apos;" description="Rename compilation unit &apos;WebDriver.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;revision{WebDriver.java" name="WebDriverMethods.java" references="false" stamp="1746804769630" version="1.0"/>
+</session>

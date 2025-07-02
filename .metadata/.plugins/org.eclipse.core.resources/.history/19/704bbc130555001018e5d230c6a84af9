@@ -1,0 +1,45 @@
+package com.comcast.crm.objectrepositoryUtility;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreateNewLeadPage {
+	WebDriver driver;
+	public CreateNewLeadPage(WebDriver driver) {
+		this.driver=driver;
+		PageFactory.initElements(driver,this);
+	}
+	@FindBy(name = "lastname")
+	private WebElement lastnameField;
+	@FindBy(name = "company")
+	private WebElement companyField;
+	@FindBy(name = "assigned_user_id")
+	private WebElement AssignToFld;
+	@FindBy(xpath = "//input[@title='Save [Alt+S]']")
+	private WebElement saveBtn;
+	
+	
+	public WebElement getLastnameField() {
+		return lastnameField;
+	}
+	public WebElement getCompanyField() {
+		return companyField;
+	}
+	public WebElement getAssignToFld() {
+		return AssignToFld;
+	}
+	
+	
+	public WebElement getSaveBtn() {
+		return saveBtn;
+	}
+	public void createLead(String lname,String company) {
+		lastnameField.sendKeys(lname);
+		companyField.sendKeys(company);
+		saveBtn.click();
+	}
+
+}

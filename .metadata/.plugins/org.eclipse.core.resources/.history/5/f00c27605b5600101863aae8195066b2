@@ -1,0 +1,25 @@
+package practiceTestNG;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class SampleForTestNGTest {
+	@Test
+	public void createContact() {
+		System.out.println("===execute createContact===");
+	}
+	@Test
+	public void breateContactWithDate() {
+		System.out.println("===execute createContact===");
+	}
+	@BeforeMethod
+	public void configBeforeMethod() {
+		System.out.println("===@BeforeMethod===");
+	}
+	@AfterMethod
+	public void configAfterMethod() {
+		System.out.println("===@AfterMethod===");
+	}
+
+}

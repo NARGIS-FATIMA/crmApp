@@ -1,0 +1,20 @@
+package practiceTestNG;
+
+import org.testng.annotations.Test;
+
+import com.crm.generic.baseUtility.PracticeBaseClass;
+
+public class SampleForTestNGTest extends PracticeBaseClass {
+
+	@Test(priority = 2)
+	public void createContact() {
+		System.out.println("===execute createContact===");
+	}
+	@Test(priority = -1)
+	public void createContactWithDate() {
+		System.out.println("===execute createContactWithDate===");
+	}
+	
+
+
+}

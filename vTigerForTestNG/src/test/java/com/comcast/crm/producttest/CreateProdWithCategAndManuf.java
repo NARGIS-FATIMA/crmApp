@@ -1,0 +1,95 @@
+package com.comcast.crm.producttest;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.comcast.crm.objectrepositoryUtility.CreatingNewProductPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LoginPage;
+import com.comcast.crm.objectrepositoryUtility.ProductInfoPage;
+import com.comcast.crm.objectrepositoryUtility.ProductPage;
+import com.comcast.crm_generic_fileutility.ExcelUtility;
+import com.comcast.crm_generic_fileutility.FileUtility;
+import com.comcast.crm_generic_webdriverutility.JavaUtility;
+import com.comcast.crm_generic_webdriverutility.WebDriverUtility;
+
+public class CreateProdWithCategAndManuf {
+
+	public static void main(String[] args) throws Throwable {
+		FileUtility fLib = new FileUtility();
+		ExcelUtility eLib = new ExcelUtility();
+		JavaUtility jLib = new JavaUtility();
+		WebDriverUtility wlib = new WebDriverUtility();
+		
+		
+		//common data
+		String BROWSER = fLib.getDataFromPropertiesFile("browser");
+		String URL= fLib.getDataFromPropertiesFile("url");
+		String USERNAME = fLib.getDataFromPropertiesFile("username");
+		String PASSWORD = fLib.getDataFromPropertiesFile("password");
+		//Read test script data
+		
+		String proName = eLib.getStringDataFromExcel("product", 1, 2)+jLib.getRandomNumber();
+		String proCat =eLib.getStringDataFromExcel("product", 4, 3);
+		String manufact = eLib.getStringDataFromExcel("product",4,4);
+		
+		
+		//
+		WebDriver driver=null;
+		if(BROWSER.equals("chrome")) {
+			driver=new ChromeDriver();
+		}
+		else if (BROWSER.equals("edge")) {
+			driver=new EdgeDriver();
+		}
+		else if (BROWSER.equals("firefox")) {
+			driver=new FirefoxDriver();
+		}
+		else {
+			driver=new ChromeDriver();
+		}
+		
+		//step1: Login to App
+		wlib.ImplicitwaitForPageToLoad(driver);
+		driver.get(URL);
+		LoginPage lp = new LoginPage(driver);
+		lp.loginToapp(USERNAME, PASSWORD);
+		HomaPage hp = new HomaPage(driver);
+		hp.getProdLink().click();
+		ProductPage pp = new ProductPage(driver);
+		pp.getCreateProductIcon().click();
+		CreatingNewProductPage cpp = new CreatingNewProductPage(driver);
+		cpp.creatProdWithCatAndManufac(proName, proCat, manufact);
+		
+		//verification
+		ProductInfoPage pip = new ProductInfoPage(driver);
+		String actProName = pip.getHeaderTxt().getText();
+		if(actProName.contains(proName)) {
+			System.out.println(proName+"is verified===Pass");
+		}else {
+			System.out.println(proName+"is not verified===FAIL");
+		}
+		String actCategory = pip.getProdCat().getText();
+		if(actCategory.contains(proCat)) {
+			System.out.println(proCat+"is verified===Pass");
+		}else {
+			System.out.println(proCat+"is not verified===FAIL");
+		}
+		String actManuf = pip.getManufVerif().getText();
+		if(actManuf.contains(manufact)) {
+			System.out.println(manufact+"is verified===Pass");
+		}else {
+			System.out.println(manufact+"is not verified===FAIL");
+		}
+	
+		
+		hp.logout();
+		driver.quit();
+
+	}
+
+}

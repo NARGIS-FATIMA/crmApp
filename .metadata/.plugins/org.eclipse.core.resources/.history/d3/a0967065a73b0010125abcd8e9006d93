@@ -1,0 +1,21 @@
+package String;
+
+public class PalindromeString {
+
+	public static void main(String[] args) {
+		String string="malayalam";
+		String rev ="";
+		for(int i=string.length()-1;i>=0;i--) {
+			char ch= string.charAt(i);
+			rev=rev+ch;
+		}
+		if(rev.equals(string)) {
+			System.out.println("String is Palindrome");
+		}
+		else {
+			System.out.println("String is not Palindrome");
+		}
+
+	}
+
+}

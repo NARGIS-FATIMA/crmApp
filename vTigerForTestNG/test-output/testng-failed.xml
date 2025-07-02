@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Test(failed)">
+    <classes>
+      <class name="com.crm.comcast.contactTest.CreateContactPageTest">
+        <methods>
+          <include name="configBeforeMethod"/>
+          <include name="createContactWithSupportDateTest"/>
+          <include name="createContactTest"/>
+          <include name="configBeforeClass"/>
+          <include name="configAfterMethod"/>
+          <include name="createContactWithOrgTest"/>
+          <include name="configBeforeSuite"/>
+          <include name="configAfterClass"/>
+          <include name="configAfterSuite"/>
+        </methods>
+      </class> <!-- com.crm.comcast.contactTest.CreateContactPageTest -->
+      <class name="com.crm.comcast.orgTest.CreateOrgTest">
+        <methods>
+          <include name="configBeforeMethod"/>
+          <include name="createOrganizationWithPhoneNumber"/>
+          <include name="createOrganizationTest"/>
+          <include name="configBeforeClass"/>
+          <include name="configAfterMethod"/>
+          <include name="configAfterClass"/>
+          <include name="configBeforeSuite"/>
+          <include name="createOrganizationWithIndustry"/>
+          <include name="configAfterSuite"/>
+        </methods>
+      </class> <!-- com.crm.comcast.orgTest.CreateOrgTest -->
+      <class name="com.crm.comcast.leadTest.CreateLeadTest">
+        <methods>
+          <include name="configBeforeMethod"/>
+          <include name="configBeforeClass"/>
+          <include name="configAfterMethod"/>
+          <include name="configBeforeSuite"/>
+          <include name="configAfterClass"/>
+          <include name="createLeadTest"/>
+          <include name="configAfterSuite"/>
+        </methods>
+      </class> <!-- com.crm.comcast.leadTest.CreateLeadTest -->
+      <class name="com.crm.comcast.productTest.CreateProductTest">
+        <methods>
+          <include name="configBeforeMethod"/>
+          <include name="configBeforeClass"/>
+          <include name="configAfterMethod"/>
+          <include name="createProductWithCategoryTest"/>
+          <include name="createProductWithCategoryAndManufTest"/>
+          <include name="configAfterClass"/>
+          <include name="configBeforeSuite"/>
+          <include name="createProductTest"/>
+          <include name="configAfterSuite"/>
+        </methods>
+      </class> <!-- com.crm.comcast.productTest.CreateProductTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

@@ -1,0 +1,24 @@
+package practiceTestNG;
+
+import org.testng.annotations.Test;
+
+import com.crm.generic.baseUtility.PracticeBaseClass;
+
+public class SampleForTestNGTest extends PracticeBaseClass {
+
+	@Test(invocationCount  = -3)
+	public void createContact() {
+		System.out.println("===createContact===");
+	}
+	@Test
+	public void Editcreate() {
+		System.out.println("===Editcreate===");
+	}
+	@Test(invocationCount = 2)
+	public void deleteContact() {
+		System.out.println("===deleteContact===");
+	}
+	
+
+
+}

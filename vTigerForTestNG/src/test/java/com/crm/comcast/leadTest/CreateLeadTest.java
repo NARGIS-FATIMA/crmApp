@@ -1,0 +1,33 @@
+package com.crm.comcast.leadTest;
+
+import java.io.IOException;
+import org.testng.annotations.Test;
+import com.comcast.crm.objectrepositoryUtility.CreateNewLeadPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LeadInfoPage;
+import com.comcast.crm.objectrepositoryUtility.LeadPage;
+import com.crm.generic.baseUtility.BaseClass;
+
+public class CreateLeadTest extends BaseClass {
+	@Test(groups = "smokeTest")
+	public void createLeadTest() throws Throwable, IOException {
+		//Read test script data
+		String leadName = eLib.getStringDataFromExcel("leads", 1, 2)+jLib.getRandomNumber();
+		String cmpny = eLib.getStringDataFromExcel("leads", 1, 3)+jLib.getRandomNumber();
+
+		HomaPage hp = new HomaPage(driver);
+		hp.getLeadLink().click();
+		LeadPage lpage = new LeadPage(driver);
+		lpage.getCreateLeadIcon().click();
+		CreateNewLeadPage cnp = new CreateNewLeadPage(driver);
+		cnp.createLead(leadName,cmpny);
+		LeadInfoPage lip = new LeadInfoPage(driver);
+		String actLeadName = lip.getHeadertxt().getText();
+		if(actLeadName.contains(leadName)) {
+			System.out.println(actLeadName+"is verified===Pass");
+		}else {
+			System.out.println(actLeadName+"is not verified===FAIL");
+		}
+	}
+
+}

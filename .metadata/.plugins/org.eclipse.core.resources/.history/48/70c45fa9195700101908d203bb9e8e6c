@@ -1,0 +1,42 @@
+package com.crm.comcast.leadTest;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+import com.comcast.crm.objectrepositoryUtility.CreateNewLeadPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LeadInfoPage;
+import com.comcast.crm.objectrepositoryUtility.LeadPage;
+import com.comcast.crm.objectrepositoryUtility.LoginPage;
+import com.comcast.crm_generic_fileutility.ExcelUtility;
+import com.comcast.crm_generic_fileutility.FileUtility;
+import com.comcast.crm_generic_webdriverutility.JavaUtility;
+import com.comcast.crm_generic_webdriverutility.WebDriverUtility;
+import com.crm.generic.baseUtility.BaseClass;
+
+public class CreateLeadTest extends BaseClass {
+	@Test
+	public void createLeadTest() {
+		//Read test script data
+		String leadName = eLib.getStringDataFromExcel("leads", 1, 2)+jLib.getRandomNumber();
+		String cmpny = eLib.getStringDataFromExcel("leads", 1, 3)+jLib.getRandomNumber();
+
+		HomaPage hp = new HomaPage(driver);
+		hp.getLeadLink().click();
+		LeadPage lpage = new LeadPage(driver);
+		lpage.getCreateLeadIcon().click();
+		CreateNewLeadPage cnp = new CreateNewLeadPage(driver);
+		cnp.createLead(leadName,cmpny);
+		LeadInfoPage lip = new LeadInfoPage(driver);
+		String actLeadName = lip.getHeadertxt().getText();
+		if(actLeadName.contains(leadName)) {
+			System.out.println(actLeadName+"is verified===Pass");
+		}else {
+			System.out.println(actLeadName+"is not verified===FAIL");
+		}
+	}
+
+}

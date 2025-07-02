@@ -1,0 +1,18 @@
+package classProgram;
+
+public class NthFibonacciSeries {
+
+	public static void main(String[] args) {
+		int t=6;
+		int a=0;
+		int b=1;
+		int c=0;
+		for(int i=1;i<t;i++) {
+			c=a+b;
+			a=b;
+			b=c;
+		}
+		System.out.println(a);
+	}
+
+}

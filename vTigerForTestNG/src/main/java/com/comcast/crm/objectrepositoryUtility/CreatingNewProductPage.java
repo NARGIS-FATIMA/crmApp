@@ -1,0 +1,68 @@
+package com.comcast.crm.objectrepositoryUtility;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreatingNewProductPage {
+	WebDriver driver;
+	public CreatingNewProductPage(WebDriver driver) {
+		this.driver=driver;
+		PageFactory.initElements(driver,this);
+	}
+	@FindBy(name = "productname")
+	private WebElement productNameField;
+	@FindBy(name = "productcategory")
+	private WebElement productCategoryField;
+	@FindBy(xpath = "//select[@name='manufacturer']")
+	private WebElement manufactField;
+	@FindBy(xpath = "//input[@title='Save [Alt+S]']")
+	private WebElement saveBtn;
+	@FindBy(xpath = "//input[@name='vendor_name']/following-sibling::img")
+	private WebElement lookupBtn;
+	
+	
+	public WebDriver getDriver() {
+		return driver;
+	}
+	public WebElement getProductNameField() {
+		return productNameField;
+	}
+	public WebElement getProductCategoryField() {
+		return productCategoryField;
+	}
+	public WebElement getSaveBtn() {
+		return saveBtn;
+	}
+	
+	
+	public WebElement getManufactField() {
+		return manufactField;
+	}
+	public void createProduct(String pname) {
+		productNameField.sendKeys(pname);
+		saveBtn.click();
+	}
+	
+	public WebElement getLookupBtn() {
+		return lookupBtn;
+	}
+	public void creatProdWithCat(String pname,String category) {
+		productNameField.sendKeys(pname);
+		Select sel = new Select(productCategoryField);
+		sel.selectByVisibleText(category);
+		saveBtn.click();
+	}
+	public void creatProdWithCatAndManufac(String pname,String category,String manuf) throws Throwable {
+		productNameField.sendKeys(pname);
+		Select sel = new Select(productCategoryField);
+		sel.selectByVisibleText(category);
+		Thread.sleep(2000);
+		Select sel1 = new Select(manufactField);
+		sel1.selectByValue(manuf);
+		saveBtn.click();
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.comcast.crm.opportunities;
+
+public class CreatingNewOpportunityTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

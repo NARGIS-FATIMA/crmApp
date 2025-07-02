@@ -1,0 +1,75 @@
+package com.comcast.crm.objectrepositoryUtility;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreateNewOrganizationPage {
+	
+	WebDriver driver;
+	public CreateNewOrganizationPage(WebDriver driver) {
+		this.driver=driver;
+		PageFactory.initElements(driver,this);
+	}
+	
+	@FindBy(name = "accountname")
+	private WebElement orgNameEditElement;
+	
+	@FindBy(xpath = "//input[@title='Save [Alt+S]']")
+	private WebElement saveBtnElement;
+	
+	@FindBy(name="industry")
+	private WebElement industryDbElement;
+	@FindBy(name = "accounttype")
+	private WebElement typeDD;
+	@FindBy(id = "phone")
+	private WebElement phoneField;
+
+	public WebElement getOrgNameEditElement() {
+		return orgNameEditElement;
+	}
+
+	public WebElement getSaveBtnElement() {
+		return saveBtnElement;
+	}
+
+	public WebElement getIndustryDbElement() {
+		return industryDbElement;
+	}
+	
+	public WebElement getTypeDD() {
+		return typeDD;
+	}
+	
+
+	public WebElement getPhoneField() {
+		return phoneField;
+	}
+
+	public void createOrg(String orgName) {
+		orgNameEditElement.sendKeys(orgName);
+		saveBtnElement.click();
+	}
+	public void createOrg(String orgName,String industry) {
+		orgNameEditElement.sendKeys(orgName);
+		Select sel = new Select(industryDbElement);
+		sel.selectByVisibleText(industry);
+		saveBtnElement.click();
+	}
+	public void createOrgWithPno(String orgName,String phone) {
+		orgNameEditElement.sendKeys(orgName);
+		phoneField.sendKeys(phone);
+		saveBtnElement.click();
+	}
+	public void createOrgWithIndusAndType(String orgName,String industry,String Type) {
+		orgNameEditElement.sendKeys(orgName);
+		Select sel = new Select(industryDbElement);
+		sel.selectByVisibleText(industry);
+		Select sel1 = new Select(typeDD);
+		sel1.deselectByVisibleText(Type);
+		saveBtnElement.click();
+	}
+
+}

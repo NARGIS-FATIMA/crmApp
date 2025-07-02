@@ -1,0 +1,21 @@
+package Pyramid;
+
+public class A {
+	
+	int x=10;
+}
+class B extends Test{
+	int y=20;
+}
+class Test{
+
+	public static void main(String[] args) {
+		Test test=new B();
+		B b=(B)test;
+		System.out.println(test.x);
+		System.out.println(b.y);
+		
+
+	}
+
+}

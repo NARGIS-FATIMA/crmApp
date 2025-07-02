@@ -1,0 +1,93 @@
+package com.crm.comcast.contactTest;
+
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+import com.comcast.crm.objectrepositoryUtility.ContactInfoPage;
+import com.comcast.crm.objectrepositoryUtility.ContactPage;
+import com.comcast.crm.objectrepositoryUtility.CreateNewContactPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LoginPage;
+import com.comcast.crm_generic_fileutility.ExcelUtility;
+import com.comcast.crm_generic_fileutility.FileUtility;
+import com.comcast.crm_generic_webdriverutility.JavaUtility;
+import com.crm.generic.baseUtility.BaseClass;
+
+public class CreateContactPageTest extends BaseClass {
+	@Test
+	public void createContactTest() throws Throwable, IOException {
+		ExcelUtility eLib = new ExcelUtility();
+		// Read test script data
+		String lastName = eLib.getStringDataFromExcel("contact", 1, 2) + jLib.getRandomNumber();
+		//step2 : navigate to contact
+		HomaPage hp = new HomaPage(driver);
+		hp.getContactLink().click();
+		//step 3: click on create contact Button
+		ContactPage cp = new ContactPage(driver);
+		cp.getCreateNewContactBtn().click();
+		//step 4: enter all the details and create new contact
+		CreateNewContactPage cnp = new CreateNewContactPage(driver);
+		cnp.createContact(lastName);
+		ContactInfoPage cip = new ContactInfoPage(driver);
+		Thread.sleep(2000);
+		//verify Header 
+		String actText = cip.getHeaderText().getText();
+		if (actText.contains(lastName)) {
+			System.out.println(lastName + "is verified===Pass");
+		} else {
+			System.out.println(lastName + "is not verified===FAIL");
+		}
+
+	}
+	@Test
+	public void createContactWithSupportDateTest() throws Throwable, Throwable {
+		FileUtility fLib = new FileUtility();
+
+		//Read test script data
+		
+		String lastName = eLib.getStringDataFromExcel("contact", 1, 2)+jLib.getRandomNumber();
+		String startDate = jLib.getSystemDateYYYYDDMM();
+		String endDate = jLib.getRequiredDateYYYYDDMM(30);
+		//
+
+		//step1: Login to App
+		HomaPage hp = new HomaPage(driver);
+		hp.getContactLink().click();
+		ContactPage cp = new ContactPage(driver);
+		cp.getCreateNewContactBtn().click();
+		CreateNewContactPage cnp = new CreateNewContactPage(driver);
+		cnp.createContactWithSupportDate(lastName, startDate, endDate);
+		ContactInfoPage cip =new ContactInfoPage(driver);
+		String actText= cip.getHeaderText().getText();
+		if(actText.contains(lastName)) {
+			System.out.println(lastName+"is verified===Pass");
+		}else {
+			System.out.println(lastName+"is not verified===FAIL");
+		}
+		String actStartDate=cip.getGetStartDate().getText();
+		if(actStartDate.equals(startDate)){
+			System.out.println(startDate+"is verified===PASS");
+		}else {
+			System.out.println(startDate+"is not verified===FAIL");
+		}
+		String actEndDate = cip.getGetEndDate().getText();
+		if(actEndDate.equals(endDate)) {
+			System.out.println(endDate+"is verified===PASS");
+		}
+		else {
+			System.out.println(endDate+"is not verified===FAIL");
+		}
+	}
+	@Test
+	public void createContactWithOrgTest() {
+		
+
+	}
+
+}

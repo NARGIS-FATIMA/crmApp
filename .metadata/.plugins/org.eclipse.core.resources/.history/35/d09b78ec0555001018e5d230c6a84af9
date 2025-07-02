@@ -1,0 +1,10 @@
+package com.comcast.crm.leadstest;
+
+public class CreateLeadTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

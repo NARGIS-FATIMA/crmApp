@@ -1,0 +1,19 @@
+package practice.tstNG;
+
+import org.testng.annotations.Test;
+
+public class SampleTestUsingPriority {
+	@Test(priority=1)
+	public void CreateContactTest() {
+		System.out.println("Created ");
+	}
+	@Test(priority=2)
+	public void EditContactTest() {
+		System.out.println("Edited");
+	}
+	@Test(priority=3)
+	public void DeleteContactTest() {
+		System.out.println("Deleted");
+	}
+
+}

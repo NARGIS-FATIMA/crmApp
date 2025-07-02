@@ -1,0 +1,51 @@
+package class_assignments;
+
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class DemoQa {
+
+	public static void main(String[] args) throws Throwable {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.get("https://demoqa.com/");
+		WebElement alert = driver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']"));
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click()", alert);
+		
+		WebElement frame = driver.findElement(By.xpath("//div[text()='Alerts, Frame & Windows']"));
+		
+		js.executeScript("arguments[0].click()", frame);
+		
+
+		driver.findElement(By.xpath("(//div[@class='header-text'])[3]")).click();
+		driver.findElement(By.xpath("//span[text()='Browser Windows']")).click();
+		String pId = driver.getWindowHandle();
+		driver.findElement(By.id("messageWindowButton")).click();
+		
+		Set<String> allId = driver.getWindowHandles();
+		allId.remove(pId);
+		for(String id:allId) {
+			driver.switchTo().window(id);
+			Thread.sleep(1000);
+			WebElement text = driver.findElement(By.xpath("//body[contains(text(),'Knowledge')]"));
+		String	t= text.getText();
+		System.out.println(t);
+			
+		}
+	
+		
+		
+		
+
+	}
+
+}

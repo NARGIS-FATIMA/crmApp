@@ -1,0 +1,10 @@
+package classProgram;
+
+public class CountNumberOfFactors {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

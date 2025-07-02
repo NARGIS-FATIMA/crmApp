@@ -1,0 +1,113 @@
+package practice.pom.repository;
+
+import java.io.IOException;
+import java.time.Duration;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.comcast.crm.objectrepositoryUtility.CreateNewOrganizationPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LoginPage;
+import com.comcast.crm.objectrepositoryUtility.OrganizationInfoPage;
+import com.comcast.crm.objectrepositoryUtility.OrganizationsPage;
+import com.comcast.crm_generic_fileutility.ExcelUtility;
+import com.comcast.crm_generic_fileutility.FileUtility;
+import com.comcast.crm_generic_webdriverutility.JavaUtility;
+import com.comcast.crm_generic_webdriverutility.WebDriverUtility;
+
+public class DeleteOrgTest {
+
+	public static void main(String[] args) throws IOException, Throwable {
+		FileUtility fLib = new FileUtility();
+		ExcelUtility eLib = new ExcelUtility();
+		JavaUtility jLib = new JavaUtility();
+		WebDriverUtility wLib = new WebDriverUtility();
+		
+		//common data
+		String BROWSER = fLib.getDataFromPropertiesFile("browser");
+		String URL= fLib.getDataFromPropertiesFile("url");
+		String USERNAME = fLib.getDataFromPropertiesFile("username");
+		String PASSWORD = fLib.getDataFromPropertiesFile("password");
+		
+		
+		
+		//Read test script data
+		
+		String orgName = eLib.getDataFromExcel("org", 1, 2)+jLib.getRandomNumber();
+		
+		
+		//
+		WebDriver driver=null;
+		if(BROWSER.equals("chrome")) {
+			driver=new ChromeDriver();
+		}
+		else if (BROWSER.equals("edge")) {
+			driver=new EdgeDriver();
+		}
+		else if (BROWSER.equals("firefox")) {
+			driver=new FirefoxDriver();
+		}
+		else {
+			driver=new ChromeDriver();
+		}
+		
+		//step1: Login to App
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		driver.get(URL);
+		
+		LoginPage lp = new LoginPage(driver);
+		lp.loginToapp(USERNAME, PASSWORD);
+		
+		//step2:navigate to organization module
+		
+		HomaPage hp = new HomaPage(driver);
+		hp.getOrgLink().click();
+		
+		//step3: click on Create Organization Button
+		
+		OrganizationsPage cnp = new OrganizationsPage(driver);
+		cnp.getCreateNewORgBtn().click();
+		
+		//step4: enter all the details and create new Organization
+		
+		CreateNewOrganizationPage cnop = new CreateNewOrganizationPage(driver);
+		cnop.createOrg(orgName);
+		
+		//verify Header msg expected result
+		
+		OrganizationInfoPage oip = new OrganizationInfoPage(driver);
+		String actOrgName = oip.getHeaderMsg().getText();
+		if(actOrgName.contains(orgName)) {
+			System.out.println(orgName+"is verified");
+		}
+		else {
+			System.out.println(orgName+"is not verified");
+		}
+		
+		//go back to Organization Page
+		hp.getOrgLink().click();
+		
+		//search for organization
+		
+		cnp.getSearchEdit().sendKeys(orgName);
+		Thread.sleep(3000);
+		wLib.select(cnp.getSerachDb(),"accountname");
+		cnp.getSearchBtn().click();
+		
+		//In dynamic webtable select and delete org
+		
+		driver.findElement(By.xpath("//a[text()='"+orgName+"']/../../td[8]/a[text()='del']")).click();
+		
+		wLib.switchtoAlertAndAccept(driver);
+		
+	    hp.logout();
+	    driver.quit();
+
+	}
+
+}

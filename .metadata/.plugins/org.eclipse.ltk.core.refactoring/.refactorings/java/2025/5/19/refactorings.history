@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;classProgram.XylemPhloem&apos; to &apos;AutomorphicNumber&apos;&#x0D;&#x0A;- Original project: &apos;java&apos;&#x0D;&#x0A;- Original element: &apos;classProgram.XylemPhloem&apos;&#x0D;&#x0A;- Renamed element: &apos;classProgram.AutomorphicNumber&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Rename similarly named elements&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;XylemPhloem&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;classProgram{XylemPhloem.java[XylemPhloem" matchStrategy="1" name="AutomorphicNumber" qualified="false" references="true" similarDeclarations="true" stamp="1746781059883" textual="false" version="1.0"/>
+</session>

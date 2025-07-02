@@ -1,0 +1,48 @@
+package com.crm.comcast.contactTest;
+
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+import com.comcast.crm.objectrepositoryUtility.ContactInfoPage;
+import com.comcast.crm.objectrepositoryUtility.ContactPage;
+import com.comcast.crm.objectrepositoryUtility.CreateNewContactPage;
+import com.comcast.crm.objectrepositoryUtility.HomaPage;
+import com.comcast.crm.objectrepositoryUtility.LoginPage;
+import com.comcast.crm_generic_fileutility.ExcelUtility;
+import com.comcast.crm_generic_fileutility.FileUtility;
+import com.comcast.crm_generic_webdriverutility.JavaUtility;
+import com.crm.generic.baseUtility.BaseClass;
+
+public class CreateContactPageTest extends BaseClass {
+	@Test
+	public void createContactTest() throws Throwable, IOException {
+
+		ExcelUtility eLib = new ExcelUtility();
+		//Read test script data
+		String lastName = eLib.getStringDataFromExcel("contact", 1, 2)+jLib.getRandomNumber();
+
+		HomaPage hp = new HomaPage(driver);
+		hp.getContactLink().click();
+		ContactPage cp = new ContactPage(driver);
+		cp.getCreateNewContactBtn().click();
+		CreateNewContactPage cnp = new CreateNewContactPage(driver);
+		cnp.createContact(lastName);
+		ContactInfoPage cip = new ContactInfoPage(driver);
+		Thread.sleep(2000);
+		String actText = cip.getHeaderText().getText();
+		if(actText.contains(lastName)) {
+			System.out.println(lastName+"is verified===Pass");
+		}else {
+			System.out.println(lastName+"is not verified===FAIL");
+		}
+		
+	}
+
+}
